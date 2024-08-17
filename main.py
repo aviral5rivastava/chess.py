@@ -82,7 +82,7 @@ def draw_board():
         else:
             pygame.draw.rect(screen, "white", [350 - (column * 100), row * 50, 50, 50])
 
-        pygame.draw.rect(screen, "dark gray", [0, 400, WIDTH, 50])
+        pygame.draw.rect(screen, "black", [0, 400, WIDTH, 50])
         pygame.draw.rect(screen, "dark gray", [400, 0, 100, HEIGHT])
         pygame.draw.rect(screen, "black", [0, 400, WIDTH, 50], 5)
         pygame.draw.rect(screen, "black", [400, 0, 100, HEIGHT], 5)
@@ -90,7 +90,7 @@ def draw_board():
 
         status_text = ['White\'s turn: Select a Piece', 'White\'s turn: Select a Destination',
                        'Black\'s turn: Select a Piece', 'Black\'s turn: Select a Destination']
-        screen.blit(medium_font.render(status_text[turn_step], True, 'black'), (15, 415))
+        screen.blit(medium_font.render(status_text[turn_step], True, 'white'), (20, 415))
 
 
 def draw_pieces():
@@ -107,6 +107,7 @@ def draw_pieces():
             screen.blit(black_pawn, (black_locations[i][0] * 50 + 7, black_locations[i][1] * 50 + 7))
         else:
             screen.blit(black_images[index], (black_locations[i][0] * 50 + 4, black_locations[i][1] * 50 + 4))
+
 
 # main game logic
 run = True
