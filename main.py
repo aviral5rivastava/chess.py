@@ -1,13 +1,13 @@
 import pygame
 
 pygame.init()
-WIDTH = 700
-HEIGHT = 600
+WIDTH = 500
+HEIGHT = 450
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption('Gentlemen\'s Chess')
-font = pygame.font.Font('freesansbold.ttf', 20)
-medium_font = pygame.font.Font('freesansbold.ttf', 40)
-big_font = pygame.font.Font('freesansbold.ttf', 50)
+font = pygame.font.Font('freesansbold.ttf', 10)
+medium_font = pygame.font.Font('freesansbold.ttf', 20)
+big_font = pygame.font.Font('freesansbold.ttf', 25)
 timer = pygame.time.Clock()
 fps = 60
 
@@ -28,41 +28,41 @@ selection = 100
 valid_moves = []
 # load in game piece images (queen, king, rook, bishop, knight, pawn) x 2 (white and black)
 black_queen = pygame.image.load('assets/Chess_qdt60.png')
-black_queen = pygame.transform.scale(black_queen, (80, 80))
-black_queen_small = pygame.transform.scale(black_queen, (45, 45))
+black_queen = pygame.transform.scale(black_queen, (40, 40))
+black_queen_small = pygame.transform.scale(black_queen, (22, 22))
 black_king = pygame.image.load('assets/Chess_kdt60.png')
-black_king = pygame.transform.scale(black_king, (80, 80))
-black_king_small = pygame.transform.scale(black_king, (45, 45))
+black_king = pygame.transform.scale(black_king, (40, 40))
+black_king_small = pygame.transform.scale(black_king, (22, 22))
 black_rook = pygame.image.load('assets/Chess_rdt60.png')
-black_rook = pygame.transform.scale(black_rook, (80, 80))
-black_rook_small = pygame.transform.scale(black_rook, (45, 45))
+black_rook = pygame.transform.scale(black_rook, (40, 40))
+black_rook_small = pygame.transform.scale(black_rook, (22, 22))
 black_bishop = pygame.image.load('assets/Chess_bdt60.png')
-black_bishop = pygame.transform.scale(black_bishop, (80, 80))
-black_bishop_small = pygame.transform.scale(black_bishop, (45, 45))
+black_bishop = pygame.transform.scale(black_bishop, (40, 40))
+black_bishop_small = pygame.transform.scale(black_bishop, (22, 22))
 black_knight = pygame.image.load('assets/Chess_ndt60.png')
-black_knight = pygame.transform.scale(black_knight, (80, 80))
-black_knight_small = pygame.transform.scale(black_knight, (45, 45))
+black_knight = pygame.transform.scale(black_knight, (40, 40))
+black_knight_small = pygame.transform.scale(black_knight, (22, 22))
 black_pawn = pygame.image.load('assets/Chess_pdt60.png')
-black_pawn = pygame.transform.scale(black_pawn, (65, 65))
-black_pawn_small = pygame.transform.scale(black_pawn, (45, 45))
+black_pawn = pygame.transform.scale(black_pawn, (32, 32))
+black_pawn_small = pygame.transform.scale(black_pawn, (22, 22))
 white_queen = pygame.image.load('assets/Chess_qlt60.png')
-white_queen = pygame.transform.scale(white_queen, (80, 80))
-white_queen_small = pygame.transform.scale(white_queen, (45, 45))
+white_queen = pygame.transform.scale(white_queen, (40, 40))
+white_queen_small = pygame.transform.scale(white_queen, (22, 22))
 white_king = pygame.image.load('assets/Chess_klt60.png')
-white_king = pygame.transform.scale(white_king, (80, 80))
-white_king_small = pygame.transform.scale(white_king, (45, 45))
+white_king = pygame.transform.scale(white_king, (40, 40))
+white_king_small = pygame.transform.scale(white_king, (22, 22))
 white_rook = pygame.image.load('assets/Chess_rlt60.png')
-white_rook = pygame.transform.scale(white_rook, (80, 80))
-white_rook_small = pygame.transform.scale(white_rook, (45, 45))
+white_rook = pygame.transform.scale(white_rook, (40, 40))
+white_rook_small = pygame.transform.scale(white_rook, (22, 22))
 white_bishop = pygame.image.load('assets/Chess_blt60.png')
-white_bishop = pygame.transform.scale(white_bishop, (80, 80))
-white_bishop_small = pygame.transform.scale(white_bishop, (45, 45))
-white_knight = pygame.image.load('assets/Chess_klt60.png')
-white_knight = pygame.transform.scale(white_knight, (80, 80))
-white_knight_small = pygame.transform.scale(white_knight, (45, 45))
+white_bishop = pygame.transform.scale(white_bishop, (40, 40))
+white_bishop_small = pygame.transform.scale(white_bishop, (22, 22))
+white_knight = pygame.image.load('assets/Chess_nlt60.png')
+white_knight = pygame.transform.scale(white_knight, (40, 40))
+white_knight_small = pygame.transform.scale(white_knight, (22, 22))
 white_pawn = pygame.image.load('assets/Chess_plt60.png')
-white_pawn = pygame.transform.scale(white_pawn, (65, 65))
-white_pawn_small = pygame.transform.scale(white_pawn, (45, 45))
+white_pawn = pygame.transform.scale(white_pawn, (32, 32))
+white_pawn_small = pygame.transform.scale(white_pawn, (22, 22))
 white_images = [white_pawn, white_queen, white_king, white_knight, white_rook, white_bishop]
 small_white_images = [white_pawn_small, white_queen_small, white_king_small, white_knight_small,
                       white_rook_small, white_bishop_small]
@@ -72,11 +72,49 @@ small_black_images = [black_pawn_small, black_queen_small, black_king_small, bla
 piece_list = ['pawn', 'queen', 'king', 'knight', 'rook', 'bishop']
 
 
+# in game functions
+def draw_board():
+    for i in range(32):
+        column = i % 4
+        row = i // 4
+        if row % 2 == 0:
+            pygame.draw.rect(screen, "white", [300 - (column * 100), row * 50, 50, 50])
+        else:
+            pygame.draw.rect(screen, "white", [350 - (column * 100), row * 50, 50, 50])
+
+        pygame.draw.rect(screen, "dark gray", [0, 400, WIDTH, 50])
+        pygame.draw.rect(screen, "dark gray", [400, 0, 100, HEIGHT])
+        pygame.draw.rect(screen, "black", [0, 400, WIDTH, 50], 5)
+        pygame.draw.rect(screen, "black", [400, 0, 100, HEIGHT], 5)
+        pygame.draw.rect(screen, "maroon", [405, 405, 90, 40])
+
+        status_text = ['White\'s turn: Select a Piece', 'White\'s turn: Select a Destination',
+                       'Black\'s turn: Select a Piece', 'Black\'s turn: Select a Destination']
+        screen.blit(medium_font.render(status_text[turn_step], True, 'black'), (15, 415))
+
+
+def draw_pieces():
+    for i in range(len(white_pieces)):
+        index = piece_list.index(white_pieces[i])
+        if white_pieces[i] == "pawn":
+            screen.blit(white_pawn, (white_locations[i][0] * 50 + 7, white_locations[i][1] * 50 + 7))
+        else:
+            screen.blit(white_images[index], (white_locations[i][0] * 50 + 4, white_locations[i][1] * 50 + 4))
+
+    for i in range(len(black_pieces)):
+        index = piece_list.index(black_pieces[i])
+        if black_pieces[i] == "pawn":
+            screen.blit(black_pawn, (black_locations[i][0] * 50 + 7, black_locations[i][1] * 50 + 7))
+        else:
+            screen.blit(black_images[index], (black_locations[i][0] * 50 + 4, black_locations[i][1] * 50 + 4))
+
 # main game logic
 run = True
 while run:
     timer.tick(fps)
     screen.fill('dark gray')
+    draw_board()
+    draw_pieces()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
